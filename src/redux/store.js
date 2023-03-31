@@ -1,11 +1,14 @@
-import { devToolsEnhancer } from '@redux-devtools/extension';
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 
-import { persistedReducer } from './reducer';
+import { contactsReducer, contactsSlice } from './contactsSlice';
+import { filterSlice } from './filterSlice';
 
-const enhancer = devToolsEnhancer();
-
-export const store = createStore(persistedReducer, enhancer);
+export const store = configureStore({
+  reducer: {
+    contacts: contactsSlice.reducer,
+    filter: filterSlice.reducer,
+  },
+});
 
 export const persistor = persistStore(store);
